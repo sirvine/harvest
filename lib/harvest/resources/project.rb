@@ -21,7 +21,6 @@ module Harvest
       # include options[:user_id] to limit by a specific user.
       #   
       def entries(options={})
-        debugger
         validate_entries_options(options)
         entry_class = Harvest::Resources::Entry.clone
         entry_class.project_id = self.id

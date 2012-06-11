@@ -4,7 +4,7 @@ module Harvest
     # Requires a sub_domain, email, and password.
     # Specifying headers is optional, but useful for setting a user agent.
     def initialize(options={})
-      invalid_keys = options - [:email, :password, :sub_domain, :headers, :ssl]
+      invalid_keys = options.keys - [:email, :password, :sub_domain, :headers, :ssl]
       unless invalid_keys.empty?
         raise ArgumentError, "Invalid keys: #{invalid_keys.join(", ")} / Valid keys: #{valid_keys.join(", ")}  / Keys: #{keys.join(", ")}"
       end

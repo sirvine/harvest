@@ -27,7 +27,7 @@ require File.join(File.dirname(__FILE__), "harvest", "harvest_resource")
 # Shortcut for Harvest::Base.new
 #
 # Example:
-# Harvest(:email      => "jack@exampe.com", 
+# Harvest(:email      => "jack@example.com", 
 #         :password   => "secret", 
 #         :sub_domain => "frenchie",
 #         :headers    => {"User-Agent => "Harvest Rubygem"})

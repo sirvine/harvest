@@ -4,8 +4,8 @@ module Harvest
     # Requires a sub_domain, email, and password.
     # Specifying headers is optional, but useful for setting a user agent.
     def initialize(options={})
-      options.assert_valid_keys(:email, :password, :sub_domain, :headers, :ssl)
-      options.assert_required_keys(:email, :password, :sub_domain)
+      #options.assert_valid_keys(:email, :password, :sub_domain, :headers, :ssl)
+      #options.assert_required_keys(:email, :password, :sub_domain)
       @email        = options[:email]
       @password     = options[:password]
       @sub_domain   = options[:sub_domain]

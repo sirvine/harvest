@@ -1,6 +1,6 @@
 class Hash
   def assert_valid_keys(*valid_keys)
-    Rails.logger.info "Keys are: " + keys
+    Rails.logger.info "Keys are: " + keys.to_s
     invalid_keys = keys - valid_keys
     raise ArgumentError, "Invalid key(s): #{invalid_keys.join(", ")}" unless invalid_keys.empty?
   end

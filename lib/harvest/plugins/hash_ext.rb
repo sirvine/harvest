@@ -1,6 +1,5 @@
 class Hash
   def assert_valid_keys(*valid_keys)
-    puts "Keys are: " + keys.join(", ")
     invalid_keys = keys - valid_keys
     raise ArgumentError, "Invalid key(s): #{invalid_keys.join(", ")}" unless invalid_keys.empty?
   end

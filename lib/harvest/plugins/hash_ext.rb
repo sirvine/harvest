@@ -1,7 +1,7 @@
 class Hash
   def assert_valid_keys(*valid_keys)
-    original_keys = keys
-    invalid_keys = keys - valid_keys
+    original_keys = keys.map{|key| key}
+    invalid_keys = original_keys - valid_keys
     raise ArgumentError, "Invalid key(s): #{invalid_keys.join(", ")} / Passed key(s): #{original_keys.join(", ")} / Valid key(s): #{valid_keys.join(", ")}" unless invalid_keys.empty?
   end
 

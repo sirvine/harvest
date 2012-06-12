@@ -24,8 +24,10 @@ module Harvest
         validate_entries_options(options)
         entry_class = Harvest::Resources::Entry.clone
         entry_class.project_id = self.id
+        
         Project.logger = Rails.logger
-        Project.logger.info options
+        Project.logger.info "OPTIONS PASSED TO HARVEST:" + format_params(options).to_s
+        
         entry_class.find :all, :params => format_params(options)
       end
       

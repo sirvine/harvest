@@ -31,13 +31,13 @@ module Harvest
         begin
           format_params(options)
         rescue => e
-          Project.logger.info "OPTIONS ERROR FROM HARVEST:" + e
+          Project.logger.info "OPTIONS ERROR FROM HARVEST:" + e.to_s
         end
 
         begin
           entry_class.find :all, :params => formatted_params
         rescue => e
-          Project.logger.info "CONNECTION ERROR FROM HARVEST:" + e
+          Project.logger.info "CONNECTION ERROR FROM HARVEST:" + e.to_s
         end
       end
       

@@ -29,9 +29,15 @@ module Harvest
         Project.logger.info "OPTIONS PASSED TO HARVEST:" + format_params(options).to_s
         
         begin
-          entry_class.find :all, :params => format_params(options)
+          format_params(options)
         rescue => e
-          Project.logger.info "ERROR FROM HARVEST:" + e
+          Project.logger.info "OPTIONS ERROR FROM HARVEST:" + e
+        end
+
+        begin
+          entry_class.find :all, :params => formatted_params
+        rescue => e
+          Project.logger.info "CONNECTION ERROR FROM HARVEST:" + e
         end
       end
       

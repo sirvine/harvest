@@ -21,34 +21,18 @@ module Harvest
       # include options[:user_id] to limit by a specific user.
       #   
       def entries(options={})
-        self.format = :xml
-
         validate_entries_options(options)
         entry_class = Harvest::Resources::Entry.clone
         entry_class.project_id = self.id
         entry_class.format = :xml
-        
-        Project.logger = Rails.logger
-        
         begin
-          formatted_params = format_params(options)
+          entries = entry_class.find :all, :params => format_params(options)
         rescue => e
-          Project.logger.info "OPTIONS FORMAT ERROR FROM HARVEST GEM: " + e.to_s
+          Project.logger = Rails.logger
+          Project.logger.info "PROBLEM FETCHING/SAVING DATA FROM HARVEST GEM: " + e.to_s
+          Project.logger.info "BACKTRACE: \n" + e.backtrace.join("\n")
         end
-
-        entries = Array.new
-
-        if formatted_params
-          begin
-            entries = entry_class.find :all, :params => formatted_params
-          rescue => e
-            Project.logger.info "PROBLEM FETCHING/SAVING DATA FROM HARVEST GEM: " + e.to_s
-            Project.logger.info "CLASS NAME: \n" + entry_class.class.name
-            Project.logger.info "BACKTRACE: \n" + e.backtrace.join("\n")
-          end
-        end
-
-        entries
+        entries ? entries : []
       end
       
       private

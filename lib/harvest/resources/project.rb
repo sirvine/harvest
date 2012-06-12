@@ -39,7 +39,7 @@ module Harvest
         rescue => e
           Project.logger.info "CONNECTION ERROR FROM HARVEST:" + e.to_s
         end
-        entries.any? ? entries : 
+        entries.any? ? entries : false
       end
       
       private

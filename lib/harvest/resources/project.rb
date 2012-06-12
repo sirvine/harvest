@@ -28,7 +28,11 @@ module Harvest
         Project.logger = Rails.logger
         Project.logger.info "OPTIONS PASSED TO HARVEST:" + format_params(options).to_s
         
-        entry_class.find :all, :params => format_params(options)
+        begin
+          entry_class.find :all, :params => format_params(options)
+        rescue => e
+          Project.logger.info "ERROR FROM HARVEST:" + e
+        end
       end
       
       private

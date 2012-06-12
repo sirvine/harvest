@@ -26,20 +26,25 @@ module Harvest
         entry_class.project_id = self.id
         
         Project.logger = Rails.logger
-        Project.logger.info "OPTIONS PASSED TO HARVEST:" + format_params(options).to_s
+        Project.logger.info "OPTIONS PASSED TO HARVEST GEM:" + format_params(options).to_s
         
         begin
           formatted_params = format_params(options)
         rescue => e
-          Project.logger.info "OPTIONS ERROR FROM HARVEST:" + e.to_s
+          Project.logger.info "OPTIONS FORMAT ERROR FROM HARVEST GEM:" + e.to_s
         end
 
-        begin
-          entries = entry_class.find(:all, :params => formatted_params)
-        rescue => e
-          Project.logger.info "CONNECTION ERROR FROM HARVEST:" + e.to_s
+        entries = Array.new
+
+        if formatted_params
+          begin
+            entries = entry_class.find :all, :params => formatted_params
+          rescue => e
+            Project.logger.info "CONNECTION ERROR FROM HARVEST GEM:" + e.to_s
+          end
         end
-        entries.any? ? entries : false
+        
+        entries
       end
       
       private

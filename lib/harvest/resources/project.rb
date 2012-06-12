@@ -45,7 +45,7 @@ module Harvest
         
         def format_params(options)
           ops = { :from => Time.at(options[:from]).strftime("%Y%m%d"),
-                  :to   => Time.at(options[:to]).to_date.strftime("%Y%m%d")}
+                  :to   => Time.at(options[:to]).strftime("%Y%m%d")}
           ops[:user_id] = options[:user_id] if options[:user_id]
           ops[:billable] = options[:billable] if options[:billable]
           ops[:only_unbilled] = options[:only_unbilled] if options[:only_unbilled]

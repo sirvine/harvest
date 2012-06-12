@@ -25,13 +25,7 @@ module Harvest
         entry_class = Harvest::Resources::Entry.clone
         entry_class.project_id = self.id
         entry_class.format = :xml
-        begin
-          entries = entry_class.find :all, :params => format_params(options)
-        rescue => e
-          Project.logger = Rails.logger
-          Project.logger.info "PROBLEM FETCHING/SAVING DATA FROM HARVEST GEM: " + e.to_s
-          Project.logger.info "BACKTRACE: \n" + e.backtrace.join("\n")
-        end
+        entries = entry_class.find :all, :params => format_params(options)
         entries ? entries : []
       end
       

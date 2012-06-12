@@ -1,6 +1,5 @@
 module Harvest
   class Base
-   
     # Requires a sub_domain, email, and password.
     # Specifying headers is optional, but useful for setting a user agent.
     def initialize(options={})

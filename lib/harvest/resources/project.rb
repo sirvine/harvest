@@ -26,7 +26,6 @@ module Harvest
         entry_class.project_id = self.id
         
         Project.logger = Rails.logger
-        Project.logger.info "OPTIONS PASSED TO HARVEST GEM: " + format_params(options).to_s
         
         begin
           formatted_params = format_params(options)
@@ -34,17 +33,11 @@ module Harvest
           Project.logger.info "OPTIONS FORMAT ERROR FROM HARVEST GEM: " + e.to_s
         end
 
-        begin
-          test_lookup = Harvest::Resources::Entry.find_or_create_resource_for(entry_class.class.name)
-        rescue => e
-          Project.logger.info "ERROR TESTING ACTIVERECORD LOOKUPS: " + e.to_s
-        end
-
         entries = Array.new
 
         if formatted_params
           begin
-            entries = entry_class.find :all, :params => formatted_params, :format => :xml
+            entries = Harvest::Resources::Entry.find :all, :params => formatted_params, :format => :xml
           rescue => e
             Project.logger.info "PROBLEM FETCHING/SAVING DATA FROM HARVEST GEM: " + e.to_s
             Project.logger.info "CLASS NAME: \n" + entry_class.class.name

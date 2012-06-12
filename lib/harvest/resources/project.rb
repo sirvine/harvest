@@ -3,8 +3,6 @@ module Harvest
     # Supports the following:
     class Project < Harvest::HarvestResource
       include Harvest::Plugins::Toggleable
-
-      self.format = :xml
       
       def users
         user_class = Harvest::Resources::UserAssignment.clone
@@ -23,9 +21,12 @@ module Harvest
       # include options[:user_id] to limit by a specific user.
       #   
       def entries(options={})
+        self.format = :xml
+
         validate_entries_options(options)
         entry_class = Harvest::Resources::Entry.clone
         entry_class.project_id = self.id
+        entry_class.format = :xml
         
         Project.logger = Rails.logger
         

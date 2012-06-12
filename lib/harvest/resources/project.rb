@@ -29,7 +29,7 @@ module Harvest
         Project.logger.info "OPTIONS PASSED TO HARVEST:" + format_params(options).to_s
         
         begin
-          format_params(options)
+          formatted_params = format_params(options)
         rescue => e
           Project.logger.info "OPTIONS ERROR FROM HARVEST:" + e.to_s
         end

@@ -24,7 +24,7 @@ module Harvest
         validate_entries_options(options)
         entry_class = Harvest::Resources::Entry.clone
         entry_class.project_id = self.id
-        entry_class.find :all, :params => {:from => options[:from].strftime("%Y%m%d"), :to => options[:to].strftime("%Y%m%d")}
+        entry_class.find :all, :params => {:from => 1.month.ago.strftime("%Y%m%d"), :to => Time.now.strftime("%Y%m%d")}
       end
       
       private

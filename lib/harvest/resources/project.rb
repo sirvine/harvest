@@ -35,10 +35,11 @@ module Harvest
         end
 
         begin
-          entry_class.find :all, :params => formatted_params
+          entries = entry_class.where(formatted_params)
         rescue => e
           Project.logger.info "CONNECTION ERROR FROM HARVEST:" + e.to_s
         end
+        entries.any? ? entries : 
       end
       
       private

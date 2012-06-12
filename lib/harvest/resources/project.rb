@@ -35,7 +35,7 @@ module Harvest
         end
 
         begin
-          test_lookup = ActiveRecord::Base.find_or_create_resource_for(entry_class.class.name)
+          test_lookup = Harvest::Resources::Entry.find_or_create_resource_for(entry_class.class.name)
         rescue => e
           Project.logger.info "ERROR TESTING ACTIVERECORD LOOKUPS: " + e.to_s
         end

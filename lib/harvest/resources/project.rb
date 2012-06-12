@@ -24,6 +24,7 @@ module Harvest
         validate_entries_options(options)
         entry_class = Harvest::Resources::Entry.clone
         entry_class.project_id = self.id
+        Rails.logger.info format_params(options).to_s
         entry_class.find :all, :params => format_params(options)
       end
       
@@ -43,6 +44,10 @@ module Harvest
           ops = { :from => options[:from].strftime("%Y%m%d"),
                   :to   => options[:to].strftime("%Y%m%d")}
           ops[:user_id] = options[:user_id] if options[:user_id]
+          ops[:billable] = options[:billable] if options[:billable]
+          ops[:only_unbilled] = options[:only_unbilled] if options[:only_unbilled]
+          ops[:only_billed] = options[:only_billed] if options[:only_billed]
+          ops[:is_closed] = options[:is_closed] if options[:is_closed]
           return ops
         end
           

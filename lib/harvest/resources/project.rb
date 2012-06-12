@@ -41,7 +41,7 @@ module Harvest
             entries = entry_class.find :all, :params => formatted_params, :format => :xml
           rescue => e
             Project.logger.info "PROBLEM FETCHING/SAVING DATA FROM HARVEST GEM: " + e.to_s
-            Project.logger.info "CLASS NAME: \n" + entry_class
+            Project.logger.info "CLASS NAME: \n" + entry_class.class.name
             Project.logger.info "BACKTRACE: \n" + e.backtrace.join("\n")
           end
         end

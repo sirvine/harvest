@@ -3,6 +3,8 @@ module Harvest
     # Supports the following:
     class Project < Harvest::HarvestResource
       include Harvest::Plugins::Toggleable
+
+      self.format = :xml
       
       def users
         user_class = Harvest::Resources::UserAssignment.clone
@@ -37,7 +39,7 @@ module Harvest
 
         if formatted_params
           begin
-            entries = Harvest::Resources::Entry(:project_id => self.id).find :all, :params => formatted_params, :format => :xml
+            entries = entry_class.find :all, :params => formatted_params
           rescue => e
             Project.logger.info "PROBLEM FETCHING/SAVING DATA FROM HARVEST GEM: " + e.to_s
             Project.logger.info "CLASS NAME: \n" + entry_class.class.name

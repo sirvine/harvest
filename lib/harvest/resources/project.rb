@@ -32,7 +32,6 @@ module Harvest
           formatted_params = format_params(options)
         rescue => e
           Project.logger.info "OPTIONS FORMAT ERROR FROM HARVEST GEM: " + e.to_s
-          Project.logger.info "BACKTRACE: \n" + e.backtrace.join("\n")
         end
 
         entries = Array.new
@@ -42,6 +41,7 @@ module Harvest
             entries = entry_class.find :all, :params => formatted_params, :format => :xml
           rescue => e
             Project.logger.info "CONNECTION ERROR FROM HARVEST GEM: " + e.to_s
+            Project.logger.info "BACKTRACE: \n" + e.backtrace.join("\n")
           end
         end
 

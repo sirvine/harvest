@@ -34,6 +34,12 @@ module Harvest
           Project.logger.info "OPTIONS FORMAT ERROR FROM HARVEST GEM: " + e.to_s
         end
 
+        begin
+          test_lookup = ActiveRecord::Base.find_or_create_resource_for(entry_class.class.name)
+        rescue => e
+          Project.logger.info "ERROR TESTING ACTIVERECORD LOOKUPS: " + e.to_s
+        end
+
         entries = Array.new
 
         if formatted_params

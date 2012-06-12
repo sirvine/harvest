@@ -37,7 +37,7 @@ module Harvest
 
         if formatted_params
           begin
-            entries = Harvest::Resources::Entry.find :all, :params => formatted_params, :format => :xml
+            entries = Harvest::Resources::Entry(:project_id => self.id).find :all, :params => formatted_params, :format => :xml
           rescue => e
             Project.logger.info "PROBLEM FETCHING/SAVING DATA FROM HARVEST GEM: " + e.to_s
             Project.logger.info "CLASS NAME: \n" + entry_class.class.name
